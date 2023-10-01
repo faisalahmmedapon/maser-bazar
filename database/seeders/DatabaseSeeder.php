@@ -14,6 +14,8 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             UserSeeder::class,
             FishSeeder::class,
+            CustomerSeeder::class,
+            SupplierSeeder::class,
         ]);
 
     }

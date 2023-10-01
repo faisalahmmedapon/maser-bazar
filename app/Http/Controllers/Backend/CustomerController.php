@@ -3,13 +3,29 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CustomerResource;
+use App\Http\Resources\SuppliersResource;
+use App\Models\Customer;
+use App\Models\Supplier;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('permission:customer-list|customer-create|customer-edit|customer-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:customer-create', ['only' => ['create','store']]);
+        $this->middleware('permission:customer-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:customer-delete', ['only' => ['destroy']]);
+    }
+
     public function index()
     {
-        return view('backend.customer.index');
+        $customers = Customer::all();
+        return view('backend.customer.index',[
+            'customers' => CustomerResource::collection($customers),
+        ]);
     }
 
     public function create()

@@ -1,7 +1,7 @@
 @extends('backend.layouts.app')
 
 @section('title')
-    Customers
+    Suppliers
 @endsection
 
 
@@ -11,8 +11,8 @@
 
 @section('content')
     <div class="d-flex justify-content-between">
-        <h6 class="mb-0 text-uppercase"> Customers </h6>
-        <span class="badge bg-info"><a class="text-white" href="{{ route('customer.create') }}"> New Customer </a></span>
+        <h6 class="mb-0 text-uppercase"> supplieres </h6>
+        <span class="badge bg-info"><a class="text-white" href="{{ route('supplier.create') }}"> New Supplier </a></span>
     </div>
 
     <hr/>
@@ -31,24 +31,24 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($customers as $key=>$customer)
+                    @foreach($suppliers as $key=>$supplier)
                         <tr>
                             <td>{{$key+1}}</td>
-                            <td>{{$customer->name}}</td>
-                            <td>{{$customer->phone}}</td>
-                            <td>{{$customer->address}}</td>
+                            <td>{{$supplier->name}}</td>
+                            <td>{{$supplier->phone}}</td>
+                            <td>{{$supplier->address}}</td>
                             <td>
-                                <img width="70px" height="50px" src="{{ $customer->photo }}" alt="" srcset="">
+                                <img width="70px" height="50px" src="{{ $supplier->photo }}" alt="" srcset="">
                             </td>
                             <td>
-                                <a href="{{route('customer.show',$customer->slug)}}" class="badge bg-success radius-30 px-4">Details</a>
+                                <a href="{{route('supplier.today',$supplier->slug)}}" class="badge bg-success radius-30 px-4">Today Supply</a>
                             </td>
                             <td>
                                 <div class="d-flex order-actions">
                                     <div class="d-flex order-actions">
-                                        <a href="{{route('customer.show',$customer->slug)}}" class="ms-3 btn btn-sm"><i class="lni lni-eye"></i></a>
-                                        <a href="{{route('customer.edit',$customer->slug)}}" class="ms-3 btn btn-sm"><i class="bx bxs-edit"></i></a>
-                                        <a href="{{route('customer.delete',$customer->slug)}}" class="ms-3 btn btn-sm" onclick="confirm('Are you sure ?')"><i class="bx bxs-trash"></i></a>
+                                        <a href="{{route('supplier.show',$supplier->slug)}}" class="ms-3 btn btn-sm"><i class="lni lni-eye"></i></a>
+                                        <a href="{{route('supplier.edit',$supplier->slug)}}" class="ms-3 btn btn-sm"><i class="bx bxs-edit"></i></a>
+                                        <a href="{{route('supplier.delete',$supplier->slug)}}" class="ms-3 btn btn-sm" onclick="confirm('Are you sure ?')"><i class="bx bxs-trash"></i></a>
                                     </div>
                                 </div>
                             </td>
@@ -60,9 +60,9 @@
 
 
 
-            </div>
-
         </div>
+
+    </div>
 @endsection
 
 

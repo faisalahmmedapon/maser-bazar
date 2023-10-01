@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('slug')->unique()->comment('input here fish slug');
             $table->integer('weight')->comment('input here fish weight');
             $table->decimal('rate')->comment('input here fish rate');
-            $table->decimal('rate')->comment('input here fish rate');
+            $table->decimal('amount')->comment('input here fish amount');
+            $table->longText('details')->nullable()->comment('input here fish details');
             $table->timestamps();
         });
     }

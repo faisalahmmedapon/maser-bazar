@@ -50,7 +50,12 @@ class AdminController extends Controller
         $input['password'] = password_hash_make($input['password']);
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
-        return redirect()->route('admins.index')->with('success', 'User created successfully.');
+
+        $notification  = [
+            'alert-type' => 'success',
+            'message' =>   'Admin created successfully.',
+        ];
+        return redirect()->route('admins.index')->with($notification);
     }
 
 
@@ -67,6 +72,7 @@ class AdminController extends Controller
         $admin = User::find($id);
         $roles = Role::pluck('name', 'name')->all();
         $adminRole = $admin->roles->pluck('name', 'name')->toArray();
+
 
         return view('backend.admins.edit', compact('admin', 'roles', 'adminRole'));
     }
@@ -88,7 +94,11 @@ class AdminController extends Controller
             ->delete();
 
         $user->assignRole($request->input('roles'));
-        return redirect()->route('admins.index')->with('success', 'User updated successfully.');
+        $notification  = [
+            'alert-type' => 'success',
+            'message' =>   'User updated successfully.',
+        ];
+        return redirect()->route('admins.index')->with($notification);
     }
 
     public function destroy($id)

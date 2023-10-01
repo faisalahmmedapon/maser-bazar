@@ -1,7 +1,7 @@
 @extends('backend.layouts.app')
 
 @section('title')
-    Fish Create
+    Create New Fish
 @endsection
 
 @section('content')
@@ -21,33 +21,40 @@
                         </div>
                     </div>
 
-
                     <hr>
-                    <form class="row g-3">
+                    <form class="row g-3" action="{{route('fish.store')}}" method="POST">
+                        @csrf
                         <div class="col-md-6">
-                            <label for="inputFirstName" class="form-label">Fish Name</label>
-                            <input type="email" class="form-control" id="inputFirstName">
+                            <label for="name" class="form-label">Fish Name</label>
+                            <input type="text" class="form-control" id="name"
+                                   placeholder="Enter here fish name" name="name" value="{{ old('name') }}">
+                            <div style='color:red; padding: 0 5px;'>{{($errors->has('name'))?($errors->first('name')):''}}</div>
                         </div>
                         <div class="col-md-6">
-                            <label for="inputLastName" class="form-label">Fish Weight</label>
-                            <input type="password" class="form-control" id="inputLastName">
+                            <label for="weight" class="form-label">Fish Weight</label>
+                            <input readonly value="1" type="text" class="form-control" id="weight"
+                                   placeholder="Enter here fish weight" name="weight">
+                            <div style='color:red; padding: 0 5px;'>{{($errors->has('weight'))?($errors->first('weight')):''}}</div>
                         </div>
 
                         <div class="col-md-6">
-                            <label for="inputLastName" class="form-label">Fish Rate</label>
-                            <input type="password" class="form-control" id="inputLastName">
+                            <label for="rate" class="form-label">Fish Rate</label>
+                            <input type="text" class="form-control" id="rate"
+                                   placeholder="324.27 Tk" onchange="checkInputValue()" name="rate" value="{{ old('rate') }}">
+                            <div style='color:red; padding: 0 5px;'>{{($errors->has('rate'))?($errors->first('rate')):''}}</div>
                         </div>
 
 
                         <div class="col-md-6">
                             <label for="inputLastName" class="form-label">Total Amount</label>
-                            <input type="password" class="form-control" id="inputLastName">
+                            <input readonly type="text" class="form-control" id="amount" name="amount" value="{{ old('amount') }}">
+                            <div style='color:red; padding: 0 5px;'>{{($errors->has('amount'))?($errors->first('amount')):''}}</div>
                         </div>
 
                         <div class="col-12">
-                            <label for="inputAddress" class="form-label">Fish Details</label>
-                            <textarea class="form-control" id="inputAddress" placeholder="Describe About"
-                                      rows="3"></textarea>
+                            <label for="details" class="form-label">Fish Details</label>
+                            <textarea class="form-control summernote" id="details" placeholder="Describe Fish Details"
+                                      rows="3" name="details">{{ old('details') }}</textarea>
                         </div>
 
                         <div class="col-12 pt-3">
@@ -59,4 +66,28 @@
         </div>
     </div>
 
+@endsection
+
+@section('script')
+
+<script>
+
+    function offer() {
+        var rate = $('#rate').val();
+        // var amount = $('#amount').val();
+
+        if (!isNaN(rate)) {
+            $('#amount').val(rate);
+        }else {
+            alert("Please provide a fish price like 320");
+            $('#amount').val("");
+            $('#rate').val("");
+        }
+    }
+
+    $('#rate, #amount').on('keyup change', function () {
+        offer();
+    });
+
+</script>
 @endsection

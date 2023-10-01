@@ -5,17 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Fish extends Model
+class Supplier extends Model
 {
     use HasFactory;
-
-    protected $fillable =             [
+    protected $fillable = [
         'name',
         'slug',
-        'weight',
-        'rate',
-        'amount',
-        'details',
-
+        'email',
+        'phone',
+        'address',
+        'photo',
+        'status',
     ];
 }

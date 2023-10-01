@@ -45,6 +45,10 @@ class PermissionSeeder extends Seeder
             'ticket-create',
             'ticket-edit',
             'ticket-delete',
+            'supplier-list',
+            'supplier-create',
+            'supplier-edit',
+            'supplier-delete',
 
         ];
 
