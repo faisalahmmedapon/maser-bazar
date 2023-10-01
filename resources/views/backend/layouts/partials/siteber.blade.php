@@ -33,19 +33,7 @@
                 </ul>
             </li>
         @endcan
-        @can('employee-list')
-            <li>
-                <a href="javascript:;" class="has-arrow">
-                    <div class="parent-icon"><i class="lni lni-star-empty"></i></div>
-                    <div class="menu-title">Employee</div>
-                </a>
-                <ul>
-                    <li><a href="{{route('employee.create.employee')}}"><i class="bx bx-right-arrow-alt"></i>New Employee</a></li>
-                    <li><a href="{{route('employee.lists')}}"><i class="bx bx-right-arrow-alt"></i>Employee List</a>
-                    </li>
-                </ul>
-            </li>
-        @endcan
+
 
             @can('supplier-list')
                 <li>
@@ -75,6 +63,21 @@
                 </ul>
             </li>
         @endcan
+
+            @can('employee-list')
+                <li>
+                    <a href="javascript:;" class="has-arrow">
+                        <div class="parent-icon"><i class="lni lni-star-empty"></i></div>
+                        <div class="menu-title">Employee</div>
+                    </a>
+                    <ul>
+                        <li><a href="{{route('employee.create.employee')}}"><i class="bx bx-right-arrow-alt"></i>New Employee</a></li>
+                        <li><a href="{{route('employee.lists')}}"><i class="bx bx-right-arrow-alt"></i>Employee List</a>
+                        </li>
+                    </ul>
+                </li>
+            @endcan
+
         @can('ticket-list')
             <li>
                 <a class="has-arrow" href="javascript:;">
