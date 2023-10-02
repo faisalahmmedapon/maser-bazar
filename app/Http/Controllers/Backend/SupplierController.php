@@ -25,12 +25,10 @@ class SupplierController extends Controller
     public function index()
     {
         $suppliers = Supplier::all();
-        $customers = Customer::all();
 
 //        return  SuppliersResource::collection($suppliers);
         return view('backend.supplier.index', [
             'suppliers' => SuppliersResource::collection($suppliers),
-            'customers' => $customers,
         ]);
     }
 
@@ -182,6 +180,34 @@ class SupplierController extends Controller
         ]);
     }
 
+
+    public function fish_search(Request $request)
+    {
+        $query = $request->get('query');
+        $query_data = Fish::where('name', 'LIKE', $query . '%')->get();
+        return response()->json([
+            'fish_search' => $query_data,
+        ]);
+    }
+
+
+
+
+    public function manage(){
+        $suppliers = Supplier::all();
+        $customers = Customer::all();
+
+//        return  SuppliersResource::collection($suppliers);
+        return view('backend.supplier.manage', [
+            'suppliers' => SuppliersResource::collection($suppliers),
+            'customers' => $customers,
+        ]);
+    }
+
+    public function print()
+    {
+        return view('backend.supplier.print');
+    }
 
 
 

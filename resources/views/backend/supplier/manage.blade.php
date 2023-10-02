@@ -21,6 +21,7 @@
             overflow-x: hidden;
             max-height: 750px;
         }
+
     </style>
 @endsection
 
@@ -31,12 +32,11 @@
             <div class="row clearfix">
                 <div class="col-md-7 col-sm-7 col-lg-7">
                     <div class="card">
-                        <div class="card-body d-flex justify-content-between">
+                        <div class="card-body">
                             <div>
-                                <h5 class="card-title">Name: {{$supplier->name}}</h5>
+                                <h5 class="card-title">{{$supplier->name}}</h5>
                             </div>
-                            <p class="card-text">Phone: {{$supplier->phone}}</p>
-                            <a href="{{route('supplier.print',$supplier->id)}}" class="btn"> Print </a>
+                            <p class="card-text">{{$supplier->phone}}</p>
                         </div>
                     </div>
                     <div class="card-body">

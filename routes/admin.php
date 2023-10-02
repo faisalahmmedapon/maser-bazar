@@ -40,6 +40,9 @@ Route::middleware(['auth'])->prefix('/system')->group(function () {
         // today supplier
         Route::get('/today-supplier/{slug}', 'supplier')->name('today');
 
+
+        // for pos system , i am making this design
+        Route::get('/manage', 'manage')->name('manage');
     });
 
 
