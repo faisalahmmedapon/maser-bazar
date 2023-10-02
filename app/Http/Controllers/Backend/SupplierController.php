@@ -140,9 +140,11 @@ class SupplierController extends Controller
     public function update_supplier_sell_fishes($id)
     {
         $supplier_sell_fishes = SupplierSellFish::findOrFail($id);
+        $customers = Customer::all();
         return response()->json([
             'message' => 'You are tring to edit supplier sell fishes',
             'update_supplier_sell_fishes' => $supplier_sell_fishes,
+            'customers' => $customers,
         ]);
     }
 

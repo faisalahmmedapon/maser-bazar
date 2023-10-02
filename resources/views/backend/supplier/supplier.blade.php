@@ -116,19 +116,19 @@
                         <div class="modal-body">
                             <input type="hidden" class="form-control" id="update_supplier_sell_fishes_row_id" name="update_supplier_sell_fishes_row_id">
 
-                            <div class="mb-3" data-select2-id="15">
-                                <label class="form-label">Select2 Text Control</label>
-                                <select id="set_customer_data_in_loop" class="single-select select2-hidden-accessible" data-select2-id="1" tabindex="-1" aria-hidden="true">
+                            <div class="mb-3">
+                                <label class="form-label">Customer Name</label>
+                                <select id="update_supplier_sell_fishes_customer_name" name="update_supplier_sell_fishes_customer_name" class="single-select select2-hidden-accessible" data-select2-id="1" tabindex="-1" aria-hidden="true">
 
                                 </select>
                             </div>
-                            <div class="col-md-12">
-                                <label for="update_supplier_sell_fishes_customer_name" class="form-label">Customer
-                                    Name</label>
-                                <input value="" type="text" class="form-control"
-                                       id="update_supplier_sell_fishes_customer_name"
-                                       name="update_supplier_sell_fishes_customer_name">
-                            </div>
+{{--                            <div class="col-md-12">--}}
+{{--                                <label for="update_supplier_sell_fishes_customer_name" class="form-label">Customer--}}
+{{--                                    Name</label>--}}
+{{--                                <input value="" type="text" class="form-control"--}}
+{{--                                       id="update_supplier_sell_fishes_customer_name"--}}
+{{--                                       name="update_supplier_sell_fishes_customer_name">--}}
+{{--                            </div>--}}
 
                             <div class="col-md-12">
                                 <label for="update_supplier_sell_fishes_fish_rate" class="form-label">Fish Rate</label>
@@ -247,7 +247,7 @@
 
                     $("#update-supplier-sell-fishes").modal('show');
                     $('#update_supplier_sell_fishes_row_id').val(response.supplier_sell_fish.id);
-                    $('#update_supplier_sell_fishes_customer_name').val(response.supplier_sell_fish.customer_name);
+                    // $('#update_supplier_sell_fishes_customer_name').val(response.supplier_sell_fish.customer_name);
                     $('#update_supplier_sell_fishes_fish_weight').val(response.supplier_sell_fish.fish_weight);
                     $('#update_supplier_sell_fishes_fish_rate').val(response.supplier_sell_fish.fish_rate);
                     $('#update_supplier_sell_fishes_fish_amount').val(response.supplier_sell_fish.fish_amount);
@@ -257,7 +257,7 @@
                     $.each(response.customers, function (key, customer) {
                         html += '<option value="'+ customer.id +'" >'+ customer.name +'</option>'
                     })
-                    $('#set_customer_data_in_loop').html(html);
+                    $('#update_supplier_sell_fishes_customer_name').html(html);
 
                 }
             });
@@ -281,6 +281,12 @@
                     $('#update_supplier_sell_fishes_fish_weight').val(response.update_supplier_sell_fishes.fish_weight);
                     $('#update_supplier_sell_fishes_fish_rate').val(response.update_supplier_sell_fishes.fish_rate);
                     $('#update_supplier_sell_fishes_fish_amount').val(response.update_supplier_sell_fishes.fish_amount);
+
+                    var html = '';
+                    $.each(response.customers, function (key, customer) {
+                        html += '<option value="'+ customer.id +'" ' + (customer.id == response.update_supplier_sell_fishes.customer_name ? 'selected' : '') + ' >'+ customer.name +'</option>'
+                    })
+                    $('#update_supplier_sell_fishes_customer_name').html(html);
                 }
             });
         });
