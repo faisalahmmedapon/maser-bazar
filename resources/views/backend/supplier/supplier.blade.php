@@ -81,7 +81,7 @@
                     <div id="search-fish">
                         <div class="row">
                             @foreach($fishes as $fish)
-                                @for($x=0; $x <= 10; $x++)
+{{--                                @for($x=0; $x <= 10; $x++)--}}
                                     <div class="col-md-4">
                                         <div class="card">
                                             <ul class="list-group list-group-flush">
@@ -96,7 +96,7 @@
                                             </ul>
                                         </div>
                                     </div>
-                                @endfor
+{{--                                @endfor--}}
                             @endforeach
                         </div>
                     </div>
@@ -104,47 +104,60 @@
             </div>
         </div>
 
-
-        <button id="" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleLargeModal">Large Modal</button>
-        <div class="modal fade" id="exampleLargeModal" tabindex="-1" aria-hidden="true">
+        <div class="modal fade" id="update-supplier-sell-fishes" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Modal title</h5>
+                        <h5 class="modal-title"> Update Supplier Sell Fishes Details </h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
-                        <div class="col-md-6">
-                            <label for="weight" class="form-label">Customer Name</label>
-                            <input  value="" type="text" class="form-control" id="weight"
-                                    placeholder="Enter here fish weight" name="weight">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="weight" class="form-label">Fish Name</label>
-                            <input  value="" type="text" class="form-control" id="weight"
-                                    placeholder="Enter here fish weight" name="weight">
-                        </div>
-                        <div class="col-md-6">
-                            <label for="weight" class="form-label">Fish Weight</label>
-                            <input  value="" type="text" class="form-control" id="weight"
-                                   placeholder="Enter here fish weight" name="weight">
-                        </div>
+                    <form class="update_supplier_sell_fishes_form" id="update_supplier_sell_fishes_form" method="POST">
 
-                        <div class="col-md-6">
-                            <label for="rate" class="form-label">Fish Rate</label>
-                            <input type="text" class="form-control" id="rate"
-                                   placeholder="324.27 Tk" name="rate" value="">
+                        <div class="modal-body">
+                            <input type="hidden" class="form-control" id="update_supplier_sell_fishes_row_id" name="update_supplier_sell_fishes_row_id">
+
+                            <div class="mb-3" data-select2-id="15">
+                                <label class="form-label">Select2 Text Control</label>
+                                <select id="set_customer_data_in_loop" class="single-select select2-hidden-accessible" data-select2-id="1" tabindex="-1" aria-hidden="true">
+
+                                </select>
+                            </div>
+                            <div class="col-md-12">
+                                <label for="update_supplier_sell_fishes_customer_name" class="form-label">Customer
+                                    Name</label>
+                                <input value="" type="text" class="form-control"
+                                       id="update_supplier_sell_fishes_customer_name"
+                                       name="update_supplier_sell_fishes_customer_name">
+                            </div>
+
+                            <div class="col-md-12">
+                                <label for="update_supplier_sell_fishes_fish_rate" class="form-label">Fish Rate</label>
+                                <input value="" type="text" class="form-control"
+                                       id="update_supplier_sell_fishes_fish_rate"
+                                       name="update_supplier_sell_fishes_fish_rate">
+                            </div>
+
+                            <div class="col-md-12">
+                                <label for="update_supplier_sell_fishes_fish_weight" class="form-label">Fish
+                                    Weight</label>
+                                <input value="" type="text" class="form-control"
+                                       id="update_supplier_sell_fishes_fish_weight"
+                                       name="update_supplier_sell_fishes_fish_weight">
+                            </div>
+
+                            <div class="col-md-12">
+                                <label for="update_supplier_sell_fishes_fish_amount" class="form-label">Fish
+                                    Amount</label>
+                                <input readonly disabled value="" type="text" class="form-control"
+                                       id="update_supplier_sell_fishes_fish_amount"
+                                       name="update_supplier_sell_fishes_fish_amount">
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <label for="amount" class="form-label">Fish Amount</label>
-                            <input type="text" class="form-control" id="amount"
-                                   placeholder="324.27 Tk" name="rate" value="">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary"> Update</button>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -157,6 +170,9 @@
 @section('script')
 
     <script type="text/javascript">
+
+        $('.single-select').select2({ dropdownParent: $('#update_supplier_sell_fishes_form') });
+
 
         $.ajaxSetup({
             headers: {
@@ -178,14 +194,15 @@
                     // console.log(response.total_fish_weight);
                     // console.log(response.total_fish_amount);
                     var html = '';
+                    var id = 1;
                     $.each(response.supplier_sell_fishes, function (key, item) {
                         html += '<tr > ' +
-                            ' <td>' + item.id + ' </td>' +
+                            ' <td>' + id++ + '</td>' +
                             ' <td>' + item.customer_name.name + '</td>' +
                             ' <td>' + item.fish_name + '</td>' +
-                            ' <td><input id="fish_rate" value="' + item.fish_rate + '" name="rate"></td>' +
-                            ' <td> <input id="fish_weight" value="' + item.fish_weight + '" name="weight"> </td>' +
-                            ' <td><input id="fish_amount" value="' + item.fish_amount + '" name="amount"></td>' +
+                            ' <td><input disabled readonly id="fish_rate" value="' + item.fish_rate + '" name="rate"></td>' +
+                            ' <td> <input disabled readonly id="fish_weight" value="' + item.fish_weight + '" name="weight"> </td>' +
+                            ' <td><input disabled readonly id="fish_amount" value="' + item.fish_amount + '" name="amount"></td>' +
                             ' <td class="d-flex">' +
                             '<button type="button" class=" update_supplier_sell_fish " value="' + item.id + '" >Edit</button>' +
                             '<button type="button" class=" delete_supplier_sell_fish " value="' + item.id + '" >Delete</button></td>' +
@@ -195,13 +212,12 @@
                     $('#cart-item-tbody').html(html);
 
 
-                 var total_fish_weight =   document.getElementById('total_fish_weight');
-                  var total_fish_amount =   document.getElementById('total_fish_amount');
+                    var total_fish_weight = document.getElementById('total_fish_weight');
+                    var total_fish_amount = document.getElementById('total_fish_amount');
 
-                    total_fish_weight.innerHTML = response.total_fish_weight;
-                    total_fish_amount.innerHTML = response.total_fish_amount;
+                    total_fish_weight.innerHTML = response.total_fish_weight.toFixed(2);
+                    total_fish_amount.innerHTML = response.total_fish_amount.toFixed(2);
                     // add total weight and total amount
-
 
 
                 }
@@ -214,17 +230,34 @@
 
             var id = $(this).attr("data-id");
             //console.log(dataId);
-            $("#exampleLargeModal").modal('show');
             $.ajax({
                 type: 'POST',
                 url: "{{ route('supplier.shellfish') }}",
                 data: {
                     "_token": "{{ csrf_token() }}",
-                    "id": id
+                    "id": id,
+                    "suppler_id": {{$supplier->id}},
                 },
-                success: function (data) {
-                    console.log(data.supplier_sell_fish);
+                success: function (response) {
                     getSupplierTodayItems();
+                    // console.log(response.supplier_sell_fish);
+                    // console.log(response.supplier_sell_fishes);
+                    // console.log(response.customers);
+
+
+                    $("#update-supplier-sell-fishes").modal('show');
+                    $('#update_supplier_sell_fishes_row_id').val(response.supplier_sell_fish.id);
+                    $('#update_supplier_sell_fishes_customer_name').val(response.supplier_sell_fish.customer_name);
+                    $('#update_supplier_sell_fishes_fish_weight').val(response.supplier_sell_fish.fish_weight);
+                    $('#update_supplier_sell_fishes_fish_rate').val(response.supplier_sell_fish.fish_rate);
+                    $('#update_supplier_sell_fishes_fish_amount').val(response.supplier_sell_fish.fish_amount);
+
+
+                    var html = '';
+                    $.each(response.customers, function (key, customer) {
+                        html += '<option value="'+ customer.id +'" >'+ customer.name +'</option>'
+                    })
+                    $('#set_customer_data_in_loop').html(html);
 
                 }
             });
@@ -239,13 +272,37 @@
                 type: "GET",
                 cache: false,
                 success: function (response) {
-                    console.log(response);
+                    // console.log(response.update_supplier_sell_fishes);
                     // getSupplierTodayItems();
-                    $("#exampleLargeModal").modal('show');
 
+                    $("#update-supplier-sell-fishes").modal('show');
+                    $('#update_supplier_sell_fishes_row_id').val(response.update_supplier_sell_fishes.id);
+                    $('#update_supplier_sell_fishes_customer_name').val(response.update_supplier_sell_fishes.customer_name);
+                    $('#update_supplier_sell_fishes_fish_weight').val(response.update_supplier_sell_fishes.fish_weight);
+                    $('#update_supplier_sell_fishes_fish_rate').val(response.update_supplier_sell_fishes.fish_rate);
+                    $('#update_supplier_sell_fishes_fish_amount').val(response.update_supplier_sell_fishes.fish_amount);
                 }
             });
         });
+
+
+        $(document).on('submit', '#update_supplier_sell_fishes_form', function (e) {
+            e.preventDefault();
+            var id = $('#update_supplier_sell_fishes_row_id').val();
+            let productData = new FormData($('#update_supplier_sell_fishes_form')[0]);
+            $.ajax({
+                url: "/system/suppliers/update-supplier-sell-fishes-row/" + id,
+                type: "POST",
+                data: productData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    //console.log(response.update_supplier_sell_fishes_row);
+                    $("#update-supplier-sell-fishes").modal('hide');
+                    getSupplierTodayItems();
+                }
+            });
+        })
 
 
         // delete product data
@@ -257,12 +314,23 @@
                 type: "GET",
                 cache: false,
                 success: function (response) {
-                    console.log(response.message);
+                    //console.log(response.message);
                     getSupplierTodayItems();
                 }
             });
         });
 
+    </script>
+
+
+    <script>
+        $(document).click(function() {
+
+                var update_supplier_sell_fishes_fish_rate = parseFloat($("#update_supplier_sell_fishes_fish_rate").val()) || 0;
+                var update_supplier_sell_fishes_fish_weight = parseFloat($("#update_supplier_sell_fishes_fish_weight").val()) || 0;
+            $('#update_supplier_sell_fishes_fish_amount').val(update_supplier_sell_fishes_fish_rate*update_supplier_sell_fishes_fish_weight);
+                // console.log(update_supplier_sell_fishes_fish_rate*update_supplier_sell_fishes_fish_weight)
+        });
     </script>
 
 @endsection

@@ -90,11 +90,11 @@ class SupplierController extends Controller
 
     public function supplier($slug)
     {
-        $supplier = Supplier::where('slug', $slug)->first();
-        $fishes = Fish::all();
-        $customers = Customer::all();
-        return view('backend.supplier.supplier', compact(['supplier', 'fishes', 'customers']));
-//        return $suppler;
+        $data['supplier'] = Supplier::where('slug', $slug)->first();
+        $data['fishes'] = Fish::all();
+        $data['customers'] = Customer::all();
+
+        return view('backend.supplier.supplier', $data);
     }
 
     public function shellfish(Request $request)
@@ -104,20 +104,22 @@ class SupplierController extends Controller
         $shellfish = Fish::findOrFail($request->id);
 
         $supplier_sell_fish = new SupplierSellFish();
-        $supplier_sell_fish->supplier_name = 1;
+        $supplier_sell_fish->supplier_name = $request->suppler_id;
         $supplier_sell_fish->customer_name = 2;
         $supplier_sell_fish->fish_name = $shellfish->name;
         $supplier_sell_fish->fish_rate = $shellfish->rate;
         $supplier_sell_fish->fish_weight = $shellfish->weight;
-        $supplier_sell_fish->fish_amount = $shellfish->amount;
+        $supplier_sell_fish->fish_amount = $shellfish->rate*$shellfish->weight;
         $supplier_sell_fish->save();
 
 
         $supplier_sell_fishes = SupplierSellFish::all();
-
+        $customers = Customer::all();
         return response()->json([
             'supplier_sell_fish' => $supplier_sell_fish,
             'supplier_sell_fishes' => $supplier_sell_fishes,
+            'customers' => $customers,
+
         ]);
 
     }
@@ -138,10 +140,23 @@ class SupplierController extends Controller
     public function update_supplier_sell_fishes($id)
     {
         $supplier_sell_fishes = SupplierSellFish::findOrFail($id);
-
         return response()->json([
-            'message' => 'successfully delete this item from our data base',
-            'supplier_sell_fishes' => $supplier_sell_fishes,
+            'message' => 'You are tring to edit supplier sell fishes',
+            'update_supplier_sell_fishes' => $supplier_sell_fishes,
+        ]);
+    }
+
+    public function update_supplier_sell_fishes_row(Request $request,$id)
+    {
+        $update_supplier_sell_fishes_row = SupplierSellFish::findOrFail($id);
+        $update_supplier_sell_fishes_row->customer_name = $request->update_supplier_sell_fishes_customer_name;
+        $update_supplier_sell_fishes_row->fish_rate = $request->update_supplier_sell_fishes_fish_rate;
+        $update_supplier_sell_fishes_row->fish_weight = $request->update_supplier_sell_fishes_fish_weight;
+        $update_supplier_sell_fishes_row->fish_amount = $request->update_supplier_sell_fishes_fish_rate*$request->update_supplier_sell_fishes_fish_weight;
+        $update_supplier_sell_fishes_row->save();
+        return response()->json([
+            'message' => 'successfully upate this item from our data base',
+            'update_supplier_sell_fishes_row' => $update_supplier_sell_fishes_row,
         ]);
     }
 
@@ -153,6 +168,15 @@ class SupplierController extends Controller
         }
         return response()->json([
             'message' => 'successfully delete this item from our data base',
+        ]);
+    }
+
+    public function supplier_sell_fish_price_calculate(Request $request)
+    {
+        $amount = $request->update_supplier_sell_fishes_fish_rate*$request->update_supplier_sell_fishes_fish_weight;
+
+        return response()->json([
+            'total' => $amount,
         ]);
     }
 
