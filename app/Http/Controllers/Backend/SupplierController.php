@@ -204,9 +204,15 @@ class SupplierController extends Controller
         ]);
     }
 
-    public function print()
+    public function print($id)
     {
-        return view('backend.supplier.print');
+
+
+        $data['invoice'] = Supplier::findOrFail($id);
+        $data['supplier_sell_fishes'] = SupplierSellFish::with('customer_name')->where('supplier_name',$id)->get();
+        $data['total_fish_weight'] = number_format((float)$data['supplier_sell_fishes']->sum('fish_weight'), 2, '.', '');
+        $data['total_fish_amount'] = number_format((float)$data['supplier_sell_fishes']->sum('fish_amount'), 2, '.', '');
+        return view('backend.supplier.print',$data);
     }
 
 
