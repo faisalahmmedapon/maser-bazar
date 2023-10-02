@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="wrapper">
-    @include('backend.layouts.partials.siteber')
+     @include('backend.layouts.partials.siteber')
     @include('backend.layouts.partials.header')
     <div class="page-wrapper">
         <div class="page-content">
@@ -19,7 +19,7 @@
     </div>
 {{--    @include('backend.layouts.partials.footer')--}}
 </div>
-@include('backend.layouts.partials.theme-customizer')
+{{--@include('backend.layouts.partials.theme-customizer')--}}
 @include('backend.layouts.link-js')
 @yield('script')
 </body>

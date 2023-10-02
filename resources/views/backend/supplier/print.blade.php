@@ -29,6 +29,10 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Imprima&display=swap');
 
+        * {
+            font-family: 'Imprima', sans-serif !important;
+        }
+
         @media print {
 
             .hidden-print {
@@ -39,10 +43,12 @@
         @page {
             margin: 0; /* Set margins to zero */
         }
+
         .invoice table {
             margin-bottom: 20px !important;
             text-align: center !important;
         }
+
         .invoice table tfoot td {
             background: 0 0;
             border-bottom: none;
@@ -52,13 +58,16 @@
             font-size: 1.2em;
             border-top: 1px solid #aaa
         }
+
         .invoice .contacts {
             margin-bottom: 20px;
-            padding: 0px 30px  !important;
+            padding: 0px 30px !important;
         }
+
         header {
-            padding: 0px 30px  !important;
+            padding: 0px 30px !important;
         }
+
         tr td {
             width: 20%;
         }
@@ -72,9 +81,11 @@
             padding: 0px 0px !important;
             font-size: 12px;
         }
+
         .invoice-id {
             font-size: 17px;
         }
+
         .invoice .invoice-to .to {
             margin-top: 0;
             margin-bottom: 0;
@@ -84,7 +95,8 @@
         .invoice main {
             padding-bottom: 0px !important;
         }
-        .invoice table , strong{
+
+        .invoice table, strong {
             font-family: 'Imprima', sans-serif !important;
             width: 100%;
             border-collapse: collapse;
@@ -98,10 +110,12 @@
             color: #008cff;
             font-size: 17px;
         }
-        .invoice-to{
+
+        .invoice-to {
             text-transform: uppercase;
         }
-        hr{
+
+        hr {
             color: black;
         }
     </style>
@@ -159,13 +173,13 @@
             </div>
             <table class="table">
                 <thead>
-                    <tr>
-                        <th>#</th>
-                        <th class="text-left">Name</th>
-                        <th class="text-right">Rate</th>
-                        <th class="text-right">Weight</th>
-                        <th class="text-right">Total</th>
-                    </tr>
+                <tr>
+                    <th>#</th>
+                    <th class="text-left">Name</th>
+                    <th class="text-right">Rate</th>
+                    <th class="text-right">Weight</th>
+                    <th class="text-right">Total</th>
+                </tr>
                 </thead>
                 <tbody>
                 @foreach($supplier_sell_fishes as $key=>$supplier_sell_fish)
@@ -179,37 +193,37 @@
                 @endforeach
                 </tbody>
             </table>
-<hr/>
+            <hr/>
             <table>
                 <tbody class="table-footer">
-                    <tr>
-                        <td colspan=""></td>
-                        <td colspan=""></td>
-                        <td colspan=""></td>
-                        <td colspan=""> <strong> TOTAL WEIGHT </strong> </td>
-                        <td> <strong> {{$total_fish_weight}} KG </strong></td>
-                    </tr>
-                    <tr>
-                        <td colspan=""></td>
-                        <td colspan=""></td>
-                        <td colspan=""></td>
-                        <td colspan=""> <strong> SUBTOTAL </strong></td>
-                        <td> <strong> {{$total_fish_amount}} Tk </strong></td>
-                    </tr>
-                    <tr>
-                        <td colspan=""></td>
-                        <td colspan=""></td>
-                        <td colspan=""></td>
-                        <td colspan=""><strong> TAX 0% </strong></td>
-                        <td> <strong> 00 Tk </strong></td>
-                    </tr>
-                    <tr>
-                        <td colspan=""></td>
-                        <td colspan=""></td>
-                        <td colspan=""></td>
-                        <td colspan=""> <strong> GRAND TOTAL </strong></td>
-                        <td> <strong> {{$total_fish_amount}} Tk </strong></td>
-                    </tr>
+                <tr>
+                    <td colspan=""></td>
+                    <td colspan=""></td>
+                    <td colspan=""></td>
+                    <td colspan=""><strong> TOTAL WEIGHT </strong></td>
+                    <td><strong> {{$total_fish_weight}} KG </strong></td>
+                </tr>
+                <tr>
+                    <td colspan=""></td>
+                    <td colspan=""></td>
+                    <td colspan=""></td>
+                    <td colspan=""><strong> SUBTOTAL </strong></td>
+                    <td><strong> {{$total_fish_amount}} Tk </strong></td>
+                </tr>
+                <tr>
+                    <td colspan=""></td>
+                    <td colspan=""></td>
+                    <td colspan=""></td>
+                    <td colspan=""><strong> TAX 0% </strong></td>
+                    <td><strong> 00 Tk </strong></td>
+                </tr>
+                <tr>
+                    <td colspan=""></td>
+                    <td colspan=""></td>
+                    <td colspan=""></td>
+                    <td colspan=""><strong> GRAND TOTAL </strong></td>
+                    <td><strong> {{$total_fish_amount}} Tk </strong></td>
+                </tr>
                 </tbody>
             </table>
         </main>
