@@ -27,6 +27,7 @@
                         <th>Phone</th>
                         <th>Address</th>
                         <th>Photo</th>
+                        <th>View Details</th>
                         <th>Action</th>
                     </tr>
                     </thead>

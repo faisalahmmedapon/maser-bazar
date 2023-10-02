@@ -126,20 +126,34 @@ class SupplierController extends Controller
     {
 
         $supplier_sell_fishes = SupplierSellFish::with('customer_name')->where('supplier_name',$id)->get();
-
+        $total_fish_weight = $supplier_sell_fishes->sum('fish_weight');
+            $total_fish_amount = $supplier_sell_fishes->sum('fish_amount');
         return response()->json([
             'supplier_sell_fishes' => $supplier_sell_fishes,
+            'total_fish_weight' => $total_fish_weight,
+            'total_fish_amount' => $total_fish_amount,
         ]);
 
     }
-    public function update_supplier_sell_fishes(Request $request)
+    public function update_supplier_sell_fishes($id)
     {
+        $supplier_sell_fishes = SupplierSellFish::findOrFail($id);
 
-        return $request->all();
+        return response()->json([
+            'message' => 'successfully delete this item from our data base',
+            'supplier_sell_fishes' => $supplier_sell_fishes,
+        ]);
+    }
 
-//        $supplier_sell_fishes = SupplierSellFish::with('customer_name')->where('supplier_name',$id)->get();
-
-
+    public function delete_supplier_sell_fishes($id)
+    {
+        $supplier_sell_fishes = SupplierSellFish::findOrFail($id);
+        if ($supplier_sell_fishes){
+            $supplier_sell_fishes->delete();
+        }
+        return response()->json([
+            'message' => 'successfully delete this item from our data base',
+        ]);
     }
 
 

@@ -39,9 +39,6 @@ Route::middleware(['auth'])->prefix('/system')->group(function () {
 
         // today supplier
         Route::get('/today-supplier/{slug}', 'supplier')->name('today');
-        Route::post('/shellfish', 'shellfish')->name('shellfish');
-        Route::get('/supplier_sell_fishes/{id}', 'supplier_sell_fishes')->name('supplier_sell_fishes');
-        Route::post('/update-supplier-sell-fishes', 'update_supplier_sell_fishes')->name('update_supplier_sell_fishes');
 
     });
 

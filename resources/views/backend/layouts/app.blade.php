@@ -17,7 +17,7 @@
             @yield('content')
         </div>
     </div>
-    @include('backend.layouts.partials.footer')
+{{--    @include('backend.layouts.partials.footer')--}}
 </div>
 @include('backend.layouts.partials.theme-customizer')
 @include('backend.layouts.link-js')
