@@ -41,15 +41,13 @@
                                     <form class="row g-3" method="POST" action="{{ route('login') }}">
                                         @csrf
                                         <div class="col-12">
-                                            <label for="email" class="form-label">Email Address</label>
-                                            <input name="email" type="email" value="{{old('email')}}" class="form-control" id="email" placeholder="Email Address">
-                                            <div style='color:red; padding: 0 5px;'>{{($errors->has('email'))?($errors->first('email')):''}}</div>
+                                            <label for="inputEmailAddress" class="form-label">Email Address</label>
+                                            <input name="email" type="email" value="{{old('email')}}" class="form-control" id="inputEmailAddress" placeholder="Email Address">
                                         </div>
                                         <div class="col-12">
                                             <label for="inputChoosePassword" class="form-label">Enter Password</label>
                                             <div class="input-group" id="show_hide_password">
                                                 <input name="password" type="password" class="form-control border-end-0" id="inputChoosePassword" value="12345678" placeholder="Enter Password"> <a href="javascript:;" class="input-group-text bg-transparent"><i class='bx bx-hide'></i></a>
-                                                <div style='color:red; padding: 0 5px;'>{{($errors->has('password'))?($errors->first('password')):''}}</div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">

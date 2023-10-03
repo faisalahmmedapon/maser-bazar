@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('supplier_sell_fish', function (Blueprint $table) {
             $table->id();
-            $table->integer('supplier_name');
+            $table->integer('invoice_id');
             $table->integer('customer_name');
             $table->string('fish_name');
             $table->decimal('fish_rate');

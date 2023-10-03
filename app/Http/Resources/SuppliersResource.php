@@ -16,6 +16,7 @@ class SuppliersResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'invoice_id' => $this->invoice_id,
             'name' => $this->name,
             'slug' => $this->slug,
             'email' => $this->email,

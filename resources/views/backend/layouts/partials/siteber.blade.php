@@ -42,7 +42,7 @@
                         <div class="menu-title">Supplier</div>
                     </a>
                     <ul>
-{{--                        <li><a href="{{route('supplier.create')}}"><i class="bx bx-right-arrow-alt"></i>New Supplier</a></li>--}}
+                        <li><a href="{{route('supplier.today')}}"><i class="bx bx-right-arrow-alt"></i>Today Supplier</a></li>
                         <li><a href="{{route('supplier.lists')}}"><i class="bx bx-right-arrow-alt"></i>Supplier List</a>
                         </li>
                     </ul>

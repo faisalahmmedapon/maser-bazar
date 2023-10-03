@@ -10,6 +10,7 @@ use App\Models\Fish;
 use App\Models\Supplier;
 use App\Models\SupplierSellFish;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
 class SupplierController extends Controller
@@ -32,12 +33,26 @@ class SupplierController extends Controller
         ]);
     }
 
+
+
+    //get all current date supplier using supplier model
+    public function today_supplier()
+    {
+        $today_date = Carbon::today();
+        $suppliers = Supplier::whereDate('created_at',$today_date)->orderBy('created_at', 'DESC')->get();
+//return  $suppliers;
+
+        return view('backend.supplier.index', [
+            'suppliers' => SuppliersResource::collection($suppliers),
+        ]);
+    }
+
     public function create()
     {
         return view('backend.supplier.create');
     }
 
-    public function store(Request $request)
+    public function store(SupplierPostRequest $request)
     {
         $input = $request->all();
         $input['slug'] = Str::slug($request->name);
@@ -55,43 +70,42 @@ class SupplierController extends Controller
             'message' => 'You are successfully creating a supplier account'
         ];
 
-        $supplier = Supplier::where('slug', $supplier->slug)->first();
+        $supplier = Supplier::where('invoice_id', $supplier->invoice_id)->first();
         $fishes = Fish::all();
         return view('backend.supplier.supplier', compact(['supplier', 'fishes']));
 
 //        return redirect('/system/suppliers/today-supplier/'.$supplier->slug)->with($notification);
     }
 
-    public function show($slug)
+    public function show($invoice_id)
     {
-        $suppler = Supplier::where('slug', $slug)->first();
+        $suppler = Supplier::where('invoice_id', $invoice_id)->first();
         return $suppler;
     }
 
-    public function edit($slug)
+    public function edit($invoice_id)
     {
-        $suppler = Supplier::where('slug', $slug)->first();
+        $suppler = Supplier::where('invoice_id', $invoice_id)->first();
         return $suppler;
     }
 
-    public function update($slug)
+    public function update($invoice_id)
     {
-        $suppler = Supplier::where('slug', $slug)->first();
+        $suppler = Supplier::where('invoice_id', $invoice_id)->first();
         return $suppler;
     }
 
-    public function destroy($slug)
+    public function destroy($invoice_id)
     {
-        $suppler = Supplier::where('slug', $slug)->first();
+        $suppler = Supplier::where('invoice_id', $invoice_id)->first();
         return $suppler;
     }
 
-    public function supplier($slug)
+    public function supplier_details($invoice_id)
     {
-        $data['supplier'] = Supplier::where('slug', $slug)->first();
+        $data['supplier'] = Supplier::where('invoice_id', $invoice_id)->first();
         $data['fishes'] = Fish::all();
         $data['customers'] = Customer::all();
-
         return view('backend.supplier.supplier', $data);
     }
 
@@ -102,14 +116,13 @@ class SupplierController extends Controller
         $shellfish = Fish::findOrFail($request->id);
 
         $supplier_sell_fish = new SupplierSellFish();
-        $supplier_sell_fish->supplier_name = $request->suppler_id;
-        $supplier_sell_fish->customer_name = 2;
+        $supplier_sell_fish->invoice_id = $request->invoice_id;
+        $supplier_sell_fish->customer_name = 1;
         $supplier_sell_fish->fish_name = $shellfish->name;
         $supplier_sell_fish->fish_rate = $shellfish->rate;
         $supplier_sell_fish->fish_weight = $shellfish->weight;
         $supplier_sell_fish->fish_amount = $shellfish->rate*$shellfish->weight;
         $supplier_sell_fish->save();
-
 
         $supplier_sell_fishes = SupplierSellFish::all();
         $customers = Customer::all();
@@ -122,10 +135,10 @@ class SupplierController extends Controller
 
     }
 
-    public function supplier_sell_fishes($id)
+    public function supplier_sell_fishes($invoice_id)
     {
 
-        $supplier_sell_fishes = SupplierSellFish::with('customer_name')->where('supplier_name',$id)->get();
+        $supplier_sell_fishes = SupplierSellFish::with('customer_name')->where('invoice_id',$invoice_id)->get();
         $total_fish_weight = $supplier_sell_fishes->sum('fish_weight');
             $total_fish_amount = $supplier_sell_fishes->sum('fish_amount');
         return response()->json([
@@ -204,12 +217,10 @@ class SupplierController extends Controller
         ]);
     }
 
-    public function print($id)
+    public function print($invoice_id)
     {
-
-
-        $data['invoice'] = Supplier::findOrFail($id);
-        $data['supplier_sell_fishes'] = SupplierSellFish::with('customer_name')->where('supplier_name',$id)->get();
+        $data['invoice'] = Supplier::where('invoice_id',$invoice_id)->first();
+        $data['supplier_sell_fishes'] = SupplierSellFish::with('customer_name')->where('invoice_id',$invoice_id)->get();
         $data['total_fish_weight'] = number_format((float)$data['supplier_sell_fishes']->sum('fish_weight'), 2, '.', '');
         $data['total_fish_amount'] = number_format((float)$data['supplier_sell_fishes']->sum('fish_amount'), 2, '.', '');
         return view('backend.supplier.print',$data);

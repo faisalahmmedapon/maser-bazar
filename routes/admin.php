@@ -32,13 +32,14 @@ Route::middleware(['auth'])->prefix('/system')->group(function () {
         Route::get('/', 'index')->name('lists');
         Route::get('/create', 'create')->name('create');
         Route::post('/store', 'store')->name('store');
-        Route::get('/show/{slug}', 'show')->name('show');
-        Route::get('/edit/{slug}', 'edit')->name('edit');
-        Route::post('/update/{slug}', 'update')->name('update');
-        Route::get('/delete/{slug}', 'destroy')->name('delete');
+        Route::get('/show/{invoice_id}', 'show')->name('show');
+        Route::get('/edit/{invoice_id}', 'edit')->name('edit');
+        Route::post('/update/{invoice_id}', 'update')->name('update');
+        Route::get('/delete/{invoice_id}', 'destroy')->name('delete');
 
         // today supplier
-        Route::get('/today-supplier/{slug}', 'supplier')->name('today');
+        Route::get('/items/{invoice_id}', 'supplier_details')->name('details');
+        Route::get('/today-supplier/', 'today_supplier')->name('today');
 
 
         // for pos system , i am making this design

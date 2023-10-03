@@ -17,7 +17,7 @@ class SupplierPostRequest extends FormRequest
             'email' => 'nullable',
             'phone' => 'required|numeric',
             'address' => 'required',
-            'photo' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'details' => 'string|max:3000|nullable',
         ];
     }
@@ -40,7 +40,7 @@ class SupplierPostRequest extends FormRequest
                 'required' => 'Supplier home address is required!',
             ],
             'photo' => [
-                'required' => 'Supplier photo is nullable!',
+                'nullable' => 'Supplier photo is nullable!',
                 'mimes' => 'Please Provide jpeg,png,jpg max 2mb file',
             ],
             'details' => [

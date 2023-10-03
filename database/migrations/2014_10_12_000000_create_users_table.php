@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('address')->nullable()->comment('user details address');
             $table->string('photo')->nullable()->comment('user details photo');
             $table->enum('status',['active','inactive'])->default('active')->nullable()->comment('user active or inactive');
+            $table->rememberToken();
             $table->timestamps();
         });
     }

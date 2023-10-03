@@ -21,6 +21,9 @@
             overflow-x: hidden;
             max-height: 750px;
         }
+        .sell-fish{
+            cursor: pointer;
+        }
     </style>
 @endsection
 
@@ -36,7 +39,7 @@
                                 <h5 class="card-title">Name: {{$supplier->name}}</h5>
                             </div>
                             <p class="card-text">Phone: {{$supplier->phone}}</p>
-                            <a href="{{route('supplier.print',$supplier->id)}}" class="btn"> Print </a>
+                            <a href="{{route('supplier.print',$supplier->invoice_id)}}" class="btn"> Print </a>
                         </div>
                     </div>
                     <div class="card-body">
@@ -88,7 +91,7 @@
                                         <ul class="list-group list-group-flush">
                                             <li class="list-group-item">Name: {{$fish->name}}
                                                 <span class="badge bg-success">
-                                                            <a href="" data-id="{{$fish->id}}"
+                                                            <a data-id="{{$fish->id}}"
                                                                class="text-white sell-fish"> <i
                                                                     class="bx bx-cart"></i> </a>
                                                         </span>
@@ -127,14 +130,6 @@
 
                                 </select>
                             </div>
-                            {{--                            <div class="col-md-12">--}}
-                            {{--                                <label for="update_supplier_sell_fishes_customer_name" class="form-label">Customer--}}
-                            {{--                                    Name</label>--}}
-                            {{--                                <input value="" type="text" class="form-control"--}}
-                            {{--                                       id="update_supplier_sell_fishes_customer_name"--}}
-                            {{--                                       name="update_supplier_sell_fishes_customer_name">--}}
-                            {{--                            </div>--}}
-
                             <div class="col-md-12">
                                 <label for="update_supplier_sell_fishes_fish_rate" class="form-label">Fish Rate</label>
                                 <input value="" type="text" class="form-control"
@@ -192,7 +187,7 @@
 
             $.ajax({
                 type: "GET",
-                url: "{{ route('supplier.supplier_sell_fishes', $supplier->id) }}",
+                url: "{{ route('supplier.supplier_sell_fishes', $supplier->invoice_id) }}",
                 dataType: 'json',
                 success: function (response) {
                     // console.log(response.supplier_sell_fishes);
@@ -229,34 +224,28 @@
             });
         }
 
-
-        $(".sell-fish").click(function (e) {
+            // for adding fish in cart
+        $('#search-fish-item').on('click', '.sell-fish', function(e) {
             e.preventDefault();
 
             var id = $(this).attr("data-id");
-            //console.log(dataId);
+            // console.log(id);
             $.ajax({
                 type: 'POST',
                 url: "{{ route('supplier.shellfish') }}",
                 data: {
                     "_token": "{{ csrf_token() }}",
                     "id": id,
-                    "suppler_id": {{$supplier->id}},
+                    "invoice_id": {{$supplier->invoice_id}},
                 },
                 success: function (response) {
                     getSupplierTodayItems();
-                    // console.log(response.supplier_sell_fish);
-                    // console.log(response.supplier_sell_fishes);
-                    // console.log(response.customers);
-
-
                     $("#update-supplier-sell-fishes").modal('show');
                     $('#update_supplier_sell_fishes_row_id').val(response.supplier_sell_fish.id);
                     // $('#update_supplier_sell_fishes_customer_name').val(response.supplier_sell_fish.customer_name);
                     $('#update_supplier_sell_fishes_fish_weight').val(response.supplier_sell_fish.fish_weight);
                     $('#update_supplier_sell_fishes_fish_rate').val(response.supplier_sell_fish.fish_rate);
                     $('#update_supplier_sell_fishes_fish_amount').val(response.supplier_sell_fish.fish_amount);
-
 
                     var html = '';
                     $.each(response.customers, function (key, customer) {
@@ -296,7 +285,6 @@
             });
         });
 
-
         $(document).on('submit', '#update_supplier_sell_fishes_form', function (e) {
             e.preventDefault();
             var id = $('#update_supplier_sell_fishes_row_id').val();
@@ -331,47 +319,35 @@
             });
         });
 
-    </script>
-
-
-    <script>
         $(document).click(function () {
-
             var update_supplier_sell_fishes_fish_rate = parseFloat($("#update_supplier_sell_fishes_fish_rate").val()) || 0;
             var update_supplier_sell_fishes_fish_weight = parseFloat($("#update_supplier_sell_fishes_fish_weight").val()) || 0;
             $('#update_supplier_sell_fishes_fish_amount').val(update_supplier_sell_fishes_fish_rate * update_supplier_sell_fishes_fish_weight);
-            // console.log(update_supplier_sell_fishes_fish_rate*update_supplier_sell_fishes_fish_weight)
         });
 
         $('#searchFish').on('keyup', function () {
             var query = $(this).val();
-            // console.log(query);
-
             $.ajax({
                 url: "{{ route('supplier.fish_search') }}",
                 type: "GET",
                 data: {'query': query},
                 success: function (response) {
-                    //$('#userList').html(data);
-
                     var html = '';
-
                     $.each(response.fish_search, function (key, item) {
                         html += '<div class="col-md-4">' +
-                                    '<div class="card">' +
-                                        '<ul class="list-group list-group-flush">' +
-                                            '<li class="list-group-item">Name: ' + item.name +
-                                                '<span class="badge bg-success">' +
-                                                     '<a href="" data-id="' + item.id + '" class="text-white sell-fish"> <i class="bx bx-cart"></i> </a>' +
-                                                '</span>' +
-                                            '</li>' +
-                                            '<li class="list-group-item">Rate: ' + item.rate + ' Tk (KG)</li>' +
-                                        '</ul>' +
-                                    '</div>' +
-                                '</div>'
+                            '<div class="card">' +
+                            '<ul class="list-group list-group-flush">' +
+                            '<li class="list-group-item"> Name: ' + item.name +
+                            '<span class="badge bg-success">' +
+                            '<a data-id="' + item.id + '" class="text-white sell-fish"> <i class="bx bx-cart sell-fish"></i> </a>' +
+                            '</span>' +
+                            '</li>' +
+                            '<li class="list-group-item">Rate: ' + item.rate + ' Tk (KG)</li>' +
+                            '</ul>' +
+                            '</div>' +
+                            '</div>'
                     })
                     $('#search-fish-item').html(html);
-
 
                 }
             })

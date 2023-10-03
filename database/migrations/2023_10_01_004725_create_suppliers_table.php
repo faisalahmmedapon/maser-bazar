@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('suppliers', function (Blueprint $table) {
             $table->id();
+            $table->string('invoice_id')->unique();
             $table->string('name');
             $table->string('slug');
-            $table->string('email')->unique()->nullable();
+            $table->string('email')->nullable();
             $table->string('phone')->nullable()->comment('supplier details phone');
             $table->string('address')->nullable()->comment('supplier details address');
             $table->string('photo')->nullable()->comment('supplier details photo');

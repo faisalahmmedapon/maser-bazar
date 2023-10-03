@@ -135,42 +135,53 @@
     <div class="invoice overflow-auto">
         <header>
             <div class="row">
-                <div class="col">
-                    <a href="javascript:;">
-                        <img src="{{ asset('backend') }}/assets/images/logo-icon.png" width="80"
-                             alt=""/>
-                    </a>
-                </div>
-                <div class="col company-details">
-                    <h2 class="name">
-                        <a target="_blank" href="javascript:;">
-                            Maser Bazar
-                        </a>
-                    </h2>
-                    <div>Bagmara,Rajshahi,Bangladesh</div>
-                    <div>Owner:+8801307788699</div>
-                    <div>Manager:+8801307788699</div>
-                    <div>developerfaisal32@gmail.com</div>
+{{--                <div class="col">--}}
+{{--                    <a href="javascript:;">--}}
+{{--                        <img src="{{ asset('backend') }}/assets/images/logo-icon.png" width="80"--}}
+{{--                             alt=""/>--}}
+{{--                    </a>--}}
+{{--                </div>--}}
+                <div class="col" style="text-align: center">
+                    <p>বিসমিল্লাহির রাহমানির রাহিম</p>
+                    <h3>মেসার্স আল্লাহ ভরসা মৎস আড়ৎ</h3>
+                    <p>
+                        প্রাপকঃ মোঃ আলী বাবু
+                    </p>
+                    <h5>এখানে যাবতীয় মাছ খুচরা ও পাইকারি বিক্রয় করা হয়। ফিস মার্চেন্ট কমিশন এজেন্ট ও সাপ্লাইয়ার্স। </h5>
+                    <h5>
+                        মোবাইল : ০১৩০৭-৭৮৮৬৯৯
+                        ম্যানেজার : ০১৩০৭-৭৮৮৬৯৯
+                    </h5>
+                    <h5>৬ নং মসজিদ  মার্কেট, মিরপুর, ঢাকা। </h5>
+{{--                    <h2 class="name">--}}
+{{--                        <a target="_blank" href="javascript:;">--}}
+{{--                            Maser Bazar--}}
+{{--                        </a>--}}
+{{--                    </h2>--}}
+{{--                    <div>Bagmara,Rajshahi,Bangladesh</div>--}}
+{{--                    <div>Owner:+8801307788699</div>--}}
+{{--                    <div>Manager:+8801307788699</div>--}}
+{{--                    <div>developerfaisal32@gmail.com</div>--}}
                 </div>
             </div>
         </header>
         <main>
-            <div class="row contacts">
-                <div class="col invoice-to">
-                    <div class="text-gray-light">INVOICE TO:</div>
-                    <h1 class="to">{{$invoice->name ? $invoice->name : ''}}</h1>
-                    <div class="address">{{$invoice->phone ? $invoice->phone : ''}}</div>
-                    <div class="address">{{$invoice->address ? $invoice->address : ''}}</div>
-                    <div class="email">
-                        <a href="mailto:{{$invoice->email ? $invoice->email : ''}}">{{$invoice->email ? $invoice->email : ''}}</a>
-                    </div>
-                </div>
-                <div class="col invoice-details">
-                    <h1 class="invoice-id">INVOICE #00012345</h1>
-                    <div class="date">Date of Invoice: {{date('d-M-Y')}}</div>
-                    <div class="date">Due Date: {{date('d-M-Y')}}</div>
-                </div>
-            </div>
+{{--            <div class="row contacts">--}}
+{{--                <div class="col invoice-to">--}}
+{{--                    <div class="text-gray-light">INVOICE TO:</div>--}}
+{{--                    <h1 class="to">{{$invoice->name ? $invoice->name : ''}}</h1>--}}
+{{--                    <div class="address">{{$invoice->phone ? $invoice->phone : ''}}</div>--}}
+{{--                    <div class="address">{{$invoice->address ? $invoice->address : ''}}</div>--}}
+{{--                    <div class="email">--}}
+{{--                        <a href="mailto:{{$invoice->email ? $invoice->email : ''}}">{{$invoice->email ? $invoice->email : ''}}</a>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--                <div class="col invoice-details">--}}
+{{--                    <h1 class="invoice-id">INVOICE #00012345</h1>--}}
+{{--                    <div class="date">Date of Invoice: {{date('d-M-Y')}}</div>--}}
+{{--                    <div class="date">Due Date: {{date('d-M-Y')}}</div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
             <table class="table">
                 <thead>
                 <tr>
